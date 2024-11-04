@@ -6,7 +6,7 @@ This is a very basic nodejs forum / bulletin board. It was made to help me under
 
 ## What does it look like?
 
-![Nodem Forum picture](http://i.imgur.com/BOHNXiq.png)
+![Nodem Forum picture](http://i.imgur.com/YI2Ut0Z.png)
 
 ## How do I use it?
 
