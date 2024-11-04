@@ -1,0 +1,27 @@
+<!-- edit-profile.ejs -->
+
+<% layout('layout') -%>
+
+<section class="profile-edit">
+    <h1>Edit Profile</h1>
+    <% if (error) { %>
+        <div class="alert error"><%= error %></div>
+    <% } %>
+    <form action="/profile/edit" method="POST" class="form" enctype="multipart/form-data">
+        <!-- CSRF Token -->
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" value="<%= user.email %>" required>
+        </div>
+        <div class="form-group">
+            <label for="bio">Bio</label>
+            <textarea name="bio" id="bio" rows="4"><%= user.bio %></textarea>
+        </div>
+        <div class="form-group">
+            <label for="avatar">Profile Picture (JPEG, PNG, GIF)</label>
+            <input type="file" name="avatar" id="avatar" accept="image/*">
+        </div>
+        <button type="submit" class="btn">Update Profile</button>
+    </form>
+</section>

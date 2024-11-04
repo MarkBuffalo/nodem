@@ -1,0 +1,14 @@
+<!-- memberlist.ejs -->
+
+<% layout('layout') -%>
+
+<section class="memberlist">
+    <h1>Members</h1>
+    <ul class="member-list">
+        <% members.forEach(member => { %>
+            <li>
+                <a href="/user/<%= member.id %>"><%= member.username %></a>
+            </li>
+        <% }) %>
+    </ul>
+</section>

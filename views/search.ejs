@@ -1,0 +1,51 @@
+<!-- search.ejs -->
+
+<% layout('layout') -%>
+
+<section class="search-results">
+    <h1>Search Results</h1>
+    <% if (error) { %>
+        <div class="alert error"><%= error %></div>
+    <% } %>
+    <% if (posts.length > 0) { %>
+        <p>Results for "<strong><%= query %></strong>":</p>
+        <div class="post-list">
+            <% posts.forEach(post => { %>
+                <div class="post">
+                    <div class="post-header">
+                        <% if (post.avatar) { %>
+                            <img src="data:image/png;base64,<%= post.avatar %>" alt="<%= post.username %>'s Avatar" class="avatar-small">
+                        <% } else { %>
+                            <img src="/images/default-avatar.png" alt="Default Avatar" class="avatar-small">
+                        <% } %>
+                        <h3><a href="/user/<%= post.user_id %>"><%= post.username %></a></h3>
+                        <span><%= new Date(post.created_at).toLocaleString() %></span>
+                    </div>
+                    <p><%= highlightTerm(post.content, query) %></p>
+                </div>
+            <% }) %>
+        </div>
+
+        <!-- Pagination Controls -->
+        <% if (totalPages > 1) { %>
+            <div class="pagination">
+                <% if (currentPage > 1) { %>
+                    <a href="/search?q=<%= encodeURIComponent(query) %>&page=<%= currentPage - 1 %>" class="pagination-prev">Previous</a>
+                <% } %>
+                <% for (let i = 1; i <= totalPages; i++) { %>
+                    <% if (i === currentPage) { %>
+                        <span class="pagination-current"><%= i %></span>
+                    <% } else { %>
+                        <a href="/search?q=<%= encodeURIComponent(query) %>&page=<%= i %>" class="pagination-link"><%= i %></a>
+                    <% } %>
+                <% } %>
+                <% if (currentPage < totalPages) { %>
+                    <a href="/search?q=<%= encodeURIComponent(query) %>&page=<%= currentPage + 1 %>" class="pagination-next">Next</a>
+                <% } %>
+            </div>
+        <% } %>
+
+    <% } else { %>
+        <p>No results found for "<strong><%= query %></strong>".</p>
+    <% } %>
+</section>

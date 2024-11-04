@@ -1,0 +1,25 @@
+<!-- login.ejs -->
+
+<% layout('layout') -%>
+
+<section class="auth-form">
+  <h1>Login</h1>
+  <% if (error) { %>
+    <div class="alert error"><%= error %></div>
+  <% } %>
+  <form action="/login" method="POST">
+    <!-- CSRF Token -->
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+    <div class="form-group">
+      <label for="identifier">Username or Email</label>
+      <input type="text" name="identifier" id="identifier" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" required>
+    </div>
+    <button type="submit" class="btn">Login</button>
+  </form>
+  <p>Don't have an account? <a href="/register">Register here</a>.</p>
+  <p><a href="/reset">Forgot your password?</a></p>
+</section>

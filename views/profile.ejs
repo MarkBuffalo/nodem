@@ -1,0 +1,37 @@
+<!-- profile.ejs -->
+
+<% layout('layout') -%>
+
+<section class="profile">
+    <h1><%= user.username %>'s Profile</h1>
+    <div class="profile-card">
+        <% if (user.avatar) { %>
+            <img src="data:image/png;base64,<%= user.avatar %>" alt="<%= user.username %>'s Avatar" class="avatar-large">
+        <% } else { %>
+            <img src="/images/default-avatar.png" alt="Default Avatar" class="avatar-large">
+        <% } %>
+        <% if (isOwner) { %>
+            <p><strong>Email:</strong> <%= user.email %></p>
+        <% } %>
+        <p><strong>Member Since:</strong> <%= new Date(user.created_at).toLocaleDateString() %></p>
+        <% if (user.bio) { %>
+            <p><strong>Bio:</strong> <%= user.bio %></p>
+        <% } %>
+    </div>
+
+    <h2>Posts by <%= user.username %></h2>
+    <% if (posts.length > 0) { %>
+        <div class="post-list">
+            <% posts.forEach(post => { %>
+                <div class="post">
+                    <div class="post-header">
+                        <span><%= new Date(post.created_at).toLocaleString() %></span>
+                    </div>
+                    <p><%= post.content %></p>
+                </div>
+            <% }) %>
+        </div>
+    <% } else { %>
+        <p><%= user.username %> has not posted anything yet.</p>
+    <% } %>
+</section>

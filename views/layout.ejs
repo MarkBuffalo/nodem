@@ -1,0 +1,69 @@
+<!-- layout.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nodem</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="/" class="logo">Nodem</a>
+        </div>
+        <div class="navbar-menu">
+            <ul class="nav-list">
+                <li><a href="/">Home</a></li>
+                <% if (session.user) { %>
+                    <li><a href="/members">Members</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"><%= session.user.username %> ▾</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/profile">Profile</a></li>
+                            <li><a href="/profile/edit">Edit Profile</a></li>
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                <% } else { %>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                <% } %>
+            </ul>
+        </div>
+        <button class="menu-toggle" id="mobile-menu-button">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+    </nav>
+</header>
+
+<!-- Search Bar Section -->
+<% if (session.user) { %>
+    <section class="search-bar">
+        <div class="container">
+            <form action="/search" method="GET" class="search-form">
+                <input type="text" name="q" placeholder="Search..." required>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </section>
+<% } %>
+
+<main class="container">
+    <%- body %>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; <%= new Date().getFullYear() %> Nodem. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Include your JavaScript file -->
+<script src="/js/main.js"></script>
+</body>
+</html>
